@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int        @id @default(autoincrement())
+  username String
+  email    String
+  Bookmark Bookmark[]
+  Order    Order[]
+
+  @@map("users")
+}
+
+model Food {
+  id          Int             @id @default(autoincrement())
+  name        String
+  image       String?
+  description String?
+  rating      Int?
+  category    Category?       @relation(fields: [category_id], references: [id])
+  category_id Int?
+  Bookmark    Bookmark[]
+  Method      Method[]
+  Ingredients Ingredients[]
+  Order       OrdersOnFoods[]
+
+  @@map("foods")
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  name  String
+  image String?
+  foods Food[]
+
+  @@map("categories")
+}
+
+model Bookmark {
+  id      Int  @id @default(autoincrement())
+  user    User @relation(fields: [user_id], references: [id])
+  user_id Int
+  food    Food @relation(fields: [food_id], references: [id])
+  food_id Int
+
+  @@map("bookmarks")
+}
+
+model Method {
+  id      Int    @id @default(autoincrement())
+  step    String
+  how     String
+  food    Food   @relation(fields: [food_id], references: [id])
+  food_id Int
+
+  @@map("methods")
+}
+
+model Ingredients {
+  id      Int    @id @default(autoincrement())
+  name    String
+  amount  Int
+  price   Int
+  food    Food   @relation(fields: [food_id], references: [id])
+  food_id Int
+
+  @@map("ingredients")
+}
+
+model Order {
+  id       Int             @id @default(autoincrement())
+  user     User            @relation(fields: [user_id], references: [id])
+  user_id  Int
+  location String
+  date     DateTime
+  rating   Int
+  foods    OrdersOnFoods[]
+
+  @@map("orders")
+}
+
+model OrdersOnFoods {
+  order_id Int
+  food_id  Int
+  Order    Order @relation(fields: [order_id], references: [id])
+  Food     Food  @relation(fields: [food_id], references: [id])
+
+  @@id([order_id, food_id])
+  @@map("orders_on_foods")
+}
