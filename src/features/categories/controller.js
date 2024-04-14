@@ -1,16 +1,37 @@
 const prisma = require('../../configs/config');
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 
-const createCategory = async (req, res, next) => {
+// const createCategory = async (req, res, next) => {
+//     try {
+//         const { name } = req.body;
+//         let image = null;
+
+//         if (req.file) {
+//             image = `${process.env.BASE_URL}/assets/data/image/category/${req.file.filename}`;
+//         }
+
+//         const category = await prisma.category.create({
+//             data: {
+//                 name,
+//                 image
+//             }
+//         });
+
+//         res.status(201).json({
+//             status: true,
+//             message: "Category created",
+//             data: category
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
+
+const createCategory = async(req, res, next) => {
     try {
-        const { name } = req.body;
-        let image = null;
-
-        if (req.file) {
-            image = `${process.env.BASE_URL}/assets/data/image/category/${req.file.filename}`;
-        }
+        const {name, image} = req.body;
 
         const category = await prisma.category.create({
             data: {
@@ -27,7 +48,7 @@ const createCategory = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
 const getAllCategory = async (req, res, next) => {
     try {
@@ -89,15 +110,40 @@ const getCategoryById = async (req, res, next) => {
     }
 }
 
+// const updateCategory = async (req, res, next) => {
+//     try {
+//         const { id } = req.params;
+//         const { name } = req.body;
+//         let image = null;
+
+//         if (req.file) {
+//             image = `http://localhost:3000/assets/data/image/category/${req.file.filename}`;
+//         }
+
+//         const category = await prisma.category.update({
+//             where: {
+//                 id: parseInt(id)
+//             },
+//             data: {
+//                 name,
+//                 image
+//             }
+//         });
+
+//         res.status(200).json({
+//             status: true,
+//             message: "Category updated",
+//             data: category
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
+
 const updateCategory = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const { name } = req.body;
-        let image = null;
-
-        if (req.file) {
-            image = `http://localhost:3000/assets/data/image/category/${req.file.filename}`;
-        }
+        const {id} = req.params;
+        const {name, image} = req.body;
 
         const category = await prisma.category.update({
             where: {
@@ -117,7 +163,7 @@ const updateCategory = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
 const deleteCategory = async (req, res, next) => {
     try {

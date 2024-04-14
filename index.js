@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const port = process.env.PORT;
 const Routes = require('./src/routes/routes');
-const path = require('path');
+// const path = require('path');
 
 // Middlewares
 app.use(cors());
@@ -19,7 +19,7 @@ app.get('/api', (req, res) => {
 app.use('/api', Routes);
 
 // Serving static files
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+// app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Server
 app.listen(port, () => {
