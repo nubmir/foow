@@ -17,8 +17,8 @@ model User {
   id       Int        @id @default(autoincrement())
   username String
   email    String
-  Bookmark Bookmark[]
-  Order    Order[]
+  bookmark Bookmark[]
+  order    Order[]
 
   @@map("users")
 }
@@ -27,14 +27,14 @@ model Food {
   id          Int             @id @default(autoincrement())
   name        String
   image       String?
-  description String?
+  description String?         @db.Text
   rating      Int?
-  category    Category?       @relation(fields: [category_id], references: [id])
-  category_id Int?
-  Bookmark    Bookmark[]
-  Method      Method[]
-  Ingredients Ingredients[]
-  Order       OrdersOnFoods[]
+  category_id Int
+  category    Category        @relation(fields: [category_id], references: [id])
+  method      Method[]
+  ingredients Ingredients[]
+  bookmark    Bookmark[]
+  order       Order[]
 
   @@map("foods")
 }
@@ -60,8 +60,8 @@ model Bookmark {
 
 model Method {
   id      Int    @id @default(autoincrement())
-  step    String
-  how     String
+  step    Int
+  how     String @db.Text
   food    Food   @relation(fields: [food_id], references: [id])
   food_id Int
 
@@ -81,22 +81,13 @@ model Ingredients {
 
 model Order {
   id       Int             @id @default(autoincrement())
+  location String
+  date     DateTime       @default(now())
+  rating   Int
   user     User            @relation(fields: [user_id], references: [id])
   user_id  Int
-  location String
-  date     DateTime
-  rating   Int
-  foods    OrdersOnFoods[]
+  food     Food          @relation(fields: [food_id],references: [id])
+  food_id  Int 
 
   @@map("orders")
-}
-
-model OrdersOnFoods {
-  order_id Int
-  food_id  Int
-  Order    Order @relation(fields: [order_id], references: [id])
-  Food     Food  @relation(fields: [food_id], references: [id])
-
-  @@id([order_id, food_id])
-  @@map("orders_on_foods")
 }
