@@ -14,9 +14,10 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
+  uuid      String        @id @default(uuid())
   username String
   email    String
+  password String
   bookmark Bookmark[]
   order    Order[]
 
@@ -40,18 +41,19 @@ model Food {
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
-  name  String
-  image String?
-  foods Food[]
+  id            Int     @id @default(autoincrement())
+  name          String
+  header_image  String?
+  image         String?
+  foods         Food[]
 
   @@map("categories")
 }
 
 model Bookmark {
   id      Int  @id @default(autoincrement())
-  user    User @relation(fields: [user_id], references: [id])
-  user_id Int
+  user    User @relation(fields: [user_uuid], references: [uuid])
+  user_uuid String
   food    Food @relation(fields: [food_id], references: [id])
   food_id Int
 
@@ -84,8 +86,8 @@ model Order {
   location String
   date     DateTime       @default(now())
   rating   Int
-  user     User            @relation(fields: [user_id], references: [id])
-  user_id  Int
+  user     User            @relation(fields: [user_uuid], references: [uuid])
+  user_uuid  String
   food     Food          @relation(fields: [food_id],references: [id])
   food_id  Int 
 

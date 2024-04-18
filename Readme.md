@@ -54,7 +54,333 @@ General description of how to use the module with basic example.
 
 ## API
 
-Full API documentation.
+### -
+
+### - Categories
+
+Endpoint : **GET /api/categories**
+
+Summary : To get all food categories on foodo website.
+
+Response Success :
+
+```JSON
+{
+   "data" :[
+      {
+         "id" : 1,
+         "name" : "Korea",
+         "header_image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/Banner/Korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9CYW5uZXIvS29yZWEucG5nIiwiaWF0IjoxNzA5ODc4NzgzLCJleHAiOjE3NzI5NTA3ODN9.TgW03aNnWHB6tb1lFYYnbc6YzyNCyclGETKgzOPeKSE&t=2024-03-08T06%3A19%3A43.378Z",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z"
+      },
+      {
+         "id" : 2,
+         "name" : "Jepang",
+         "header_image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/Banner/Jepang.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9CYW5uZXIvS29yZWEucG5nIiwiaWF0IjoxNzA5ODc4NzgzLCJleHAiOjE3NzI5NTA3ODN9.TgW03aNnWHB6tb1lFYYnbc6YzyNCyclGETKgzOPeKSE&t=2024-03-08T06%3A19%3A43.378Z",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/jepang.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z"
+      }
+   ]
+}
+```
+
+Response Error :
+
+```JSON
+{
+   "message" : "Data not found"
+}
+```
+
+### - Food
+
+**Endpoint** : **GET /api/food**
+
+Summary : to get food data
+
+Request :
+
+- Name : page <br>
+  In : query <br>
+  Description : To set pagination on data <br>
+  Required : true <br>
+  Type : Int <br>
+  Default : 1
+
+- Name : categories <br>
+  In : query <br>
+  Description : To get food data by categories using category id <br>
+  Required : false <br>
+  Type : Int <br>
+
+- Name : price <br>
+  In : query <br>
+  Description : To get food sorted by price can be asc or desc<br>
+  Required : true <br>
+  Type : String <br>
+  Default : "asc"
+
+- Name : rating <br>
+  In : query <br>
+  Description : To get food sorted by rating can be asc or desc<br>
+  Required : false <br>
+  Type : String <br>
+
+- Name : order <br>
+  In : query <br>
+  Description : To get food sorted by order can be asc or desc<br>
+  Required : false <br>
+  Type : String <br>
+
+Response Success :
+
+```JSON
+{
+   "page" : 2,
+   "total_pages" : 5,
+   "total_results" : 20,
+   "data" :[
+      {
+         "id" : 1,
+         "name" : "Nasi Goreng",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 20000,
+         "rating" : 5,
+         "order" : 18
+      },
+      {
+        "id" : 2,
+         "name" : "Ramen",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 25000,
+         "rating" : 3,
+         "order" : 13
+      },
+      {
+        "id" : 3,
+         "name" : "Taco",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 10000,
+         "rating" : 4,
+         "order" : 12
+      },
+      {
+        "id" : 4,
+         "name" : "Soto Ayam",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 15000,
+         "rating" : 0,
+         "order" : 0
+      },
+   ]
+}
+```
+
+Response Error :
+
+```JSON
+{
+   "message" : "Data not found"
+}
+```
+
+<br>
+<hr>
+<br>
+
+**Endpoint** : **GET /api/food/:id**
+
+Summary : to get food detail
+
+Request :
+
+- Name : id <br>
+  In : params <br>
+  Description : send id food to get food details <br>
+  Required : true <br>
+  Type : Int <br>
+
+Response Success :
+
+```JSON
+{
+   "data" :{
+      "id" : 1,
+      "name" : "Nasi Goreng",
+      "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+      "description" : "Nasi goreng adalah makanan berupa nasi yang digoreng dan dicampur dalam minyak goreng, margarin, atau mentega.",
+      "rating" : 5,
+      "order" : 20,
+      "category" : "Nusantara",
+      "ingredients" : [
+         {
+            "amount" : 4,
+            "name" : "sdt garam",
+            "price" : 4000
+         },
+         {
+            "amount" : 2,
+            "name" : "potong ayam",
+            "price" : 10000
+         },
+         {
+            "amount" : 1,
+            "name" : "siung bawang",
+            "price" : 1000
+         },
+      ],
+      "Method" : [
+         {
+            "step" : 1,
+            "how" : "Panaskan minyak dan siapkan nasi yang sudah dingin"
+         },
+         {
+            "step" : 2,
+            "how" : "Masuan nasi dan aduk dengan bumbu"
+         },
+         {
+            "step" : 3,
+            "how" : "masukan telur dan ayam yang sudah di masak dengan matang"
+         },
+         {
+            "step" : 4,
+            "how" : "sajian di piring hangat hangat"
+         },
+      ]
+   }
+}
+```
+
+Response Error :
+
+```JSON
+{
+   "message" : "Data not found"
+}
+```
+
+<br>
+<hr>
+<br>
+
+**Endpoint** : **GET /api/food/search**
+
+Summary : to search food data by user query
+
+Request :
+
+- Name : query <br>
+  In : query <br>
+  Description : To get food by query search from user <br>
+  Required : true <br>
+  Type : String <br>
+
+Response Success :
+
+```JSON
+{
+   "data" :[
+      {
+         "id" : 1,
+         "name" : "Nasi Goreng",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "category" : "Nusantara"
+      },
+      {
+        "id" : 2,
+         "name" : "Ramen",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "category" : "Jepang"
+      },
+      {
+        "id" : 3,
+         "name" : "Taco",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "category" : "Western"
+      },
+      {
+        "id" : 4,
+         "name" : "Soto Ayam",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "category" : "Nusantara"
+      },
+   ]
+}
+```
+
+Response Error :
+
+```JSON
+{
+   "data" : [],
+   "message" : "Data not found"
+}
+```
+
+<br>
+<hr>
+<br>
+
+**Endpoint** : **GET /api/food/random**
+
+Summary : to get food data with random with limitation
+
+Request :
+
+- Name : limit <br>
+  In : query <br>
+  Description : To set limit on data <br>
+  Required : true <br>
+  Type : Int <br>
+  Default : 1
+
+Response Success :
+
+```JSON
+{
+   "data" :[
+      {
+         "id" : 1,
+         "name" : "Nasi Goreng",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 20000,
+         "rating" : 5,
+         "order" : 18
+      },
+      {
+        "id" : 2,
+         "name" : "Ramen",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 25000,
+         "rating" : 3,
+         "order" : 13
+      },
+      {
+        "id" : 3,
+         "name" : "Taco",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 10000,
+         "rating" : 4,
+         "order" : 12
+      },
+      {
+        "id" : 4,
+         "name" : "Soto Ayam",
+         "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
+         "price" : 15000,
+         "rating" : 0,
+         "order" : 0
+      },
+   ]
+}
+```
+
+Response Error :
+
+```JSON
+{
+   "message" : "Something went wrong"
+}
+```
 
 ## Examples
 
@@ -100,3 +426,7 @@ For a good pull request, we ask you provide the following:
 
 Link to the license, with a short description of what it is,
 e.g. "MIT" or whatever.
+
+```
+
+```
