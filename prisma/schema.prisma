@@ -51,12 +51,12 @@ model Category {
 }
 
 model Bookmark {
-  id      Int  @id @default(autoincrement())
   user    User @relation(fields: [user_uuid], references: [uuid])
   user_uuid String
   food    Food @relation(fields: [food_id], references: [id])
   food_id Int
 
+  @@id([user_uuid,food_id])
   @@map("bookmarks")
 }
 
@@ -82,7 +82,6 @@ model Ingredients {
 }
 
 model Order {
-  id       Int             @id @default(autoincrement())
   location String
   date     DateTime       @default(now())
   rating   Int
@@ -91,5 +90,6 @@ model Order {
   food     Food          @relation(fields: [food_id],references: [id])
   food_id  Int 
 
+  @@id([user_uuid,food_id])
   @@map("orders")
 }
