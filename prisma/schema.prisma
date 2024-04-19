@@ -16,7 +16,7 @@ datasource db {
 model User {
   uuid      String        @id @default(uuid())
   username String
-  email    String
+  email    String         @unique
   password String
   bookmark Bookmark[]
   order    Order[]
