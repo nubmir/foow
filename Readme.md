@@ -574,7 +574,7 @@ Response Success :
          },
       ]
    },
-   "message" : "Food successfully added to bookmark
+   "message" : "Food successfully added to bookmark"
 }
 ```
 
@@ -901,7 +901,7 @@ Response Error :
 
 **Endpoint** : **PATCH /api/order/rating**
 
-Summary : to give rating on food that already ordered
+Summary : to give rating on food that already ordered and auto-update on rating food tables
 
 Request :
 

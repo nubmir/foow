@@ -16,4 +16,4 @@ const verify = async (req, res, next) => {
   }
 };
 
-module.exports = verify;
+module.exports = { verify };

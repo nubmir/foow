@@ -30,6 +30,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    const variable = req.params.id; // /api/route/:id
     const { email, password } = req.body;
     const account = await getAccount(email);
     console.log(account);
