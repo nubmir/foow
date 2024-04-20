@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
   try {
     const data = req.body;
+
     // if account with that email already exists
     const account = await getAccount(data.email);
     if (account) {
@@ -31,6 +32,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const account = await getAccount(email);
+    console.log(account);
 
     // account doesnt find
     if (!account) {
@@ -45,7 +47,7 @@ const login = async (req, res) => {
 
     //give token (Authentication)
     const SECRET_KEY = process.env.SECRET_KEY;
-    const DURATION = 60 * 60 * 168;
+    const days = 7 * (1000 * 60 * 60 * 24);
     const token = jwt.sign(
       {
         uuid: account.uuid,
@@ -53,11 +55,13 @@ const login = async (req, res) => {
         username: account.username,
       },
       SECRET_KEY,
-      { expiresIn: DURATION }
+      { expiresIn: "7D" }
     );
 
     //set cookie for remember user info with jwt
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      maxAge: days,
+    });
     //send user info non credentials
     res.status(200).send({
       data: {
@@ -72,4 +76,20 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const logout = (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(403).send({ message: "Unauthorized user" });
+    }
+    res
+      .status(200)
+      .clearCookie("token")
+      .send({ message: "Successfully Logout" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { register, login, logout };

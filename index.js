@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.get("/api", (req, res) => {
   res.send("Welcome to the Foodo API");
 });
-app.use("/api", Routes);
+app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 
 // Server

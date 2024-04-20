@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { register, login } = require("../controllers/authController");
+const { register, login, logout } = require("../controllers/authController");
 const {
   loginValidation,
   RegisterValidation,
@@ -7,5 +7,6 @@ const {
 
 router.post("/register", RegisterValidation, register);
 router.post("/login", loginValidation, login);
+router.get("/logout", logout);
 
 module.exports = router;

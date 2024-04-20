@@ -13,10 +13,10 @@ const createAccount = async (data) => {
   return created;
 };
 
-const getAccount = async (Email) => {
+const getAccount = async (email) => {
   const account = await prisma.user.findUnique({
     where: {
-      email: dataEmail,
+      email: email,
     },
   });
   return account;
