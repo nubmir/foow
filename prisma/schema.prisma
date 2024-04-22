@@ -56,7 +56,7 @@ model Bookmark {
   food    Food @relation(fields: [food_id], references: [id])
   food_id Int
 
-  @@id([user_uuid,food_id])
+  @@id(name: "bookmark_id", [user_uuid,food_id])
   @@map("bookmarks")
 }
 
@@ -90,6 +90,6 @@ model Order {
   food     Food          @relation(fields: [food_id],references: [id])
   food_id  Int 
 
-  @@id([user_uuid,food_id])
+  @@id(name: "order_id", [user_uuid,food_id])
   @@map("orders")
 }
