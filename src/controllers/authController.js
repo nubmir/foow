@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
   try {
     const data = req.body;
-
     // if account with that email already exists
     const account = await getAccount(data.email);
     if (account) {
@@ -30,10 +29,8 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const variable = req.params.id; // /api/route/:id
     const { email, password } = req.body;
     const account = await getAccount(email);
-    console.log(account);
 
     // account doesnt find
     if (!account) {

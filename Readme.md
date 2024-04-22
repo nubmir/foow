@@ -508,7 +508,7 @@ Response Error :
 
 ### - Bookmark
 
-**Endpoint** : **POST /api/bookmark**
+**Endpoint** : **POST /api/bookmark/:food_id**
 
 Summary : to add food on their bookmark / favorite
 
@@ -590,20 +590,20 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **DELETE /api/bookmark**
+**Endpoint** : **DELETE /api/bookmark/:id**
 
 Summary : to delete food on their bookmark / favorite
 
 Request :
 
 - Name : user_uuid <br>
-  In : body <br>
+  In : cookie <br>
   Description : uuid account from that user <br>
   Required : true <br>
   Type : Int <br>
 
 - Name : food_id <br>
-  In : body <br>
+  In : params <br>
   Description : id food from users click <br>
   Required : true <br>
   Type : Int <br>
@@ -766,9 +766,9 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **GET /api/bookmark/search**
+**Endpoint** : **GET /api/bookmark/:food_id**
 
-Summary : to search food on their bookmark / favorite
+Summary : to find food on their bookmark / favorite
 
 Request :
 
@@ -788,16 +788,14 @@ Response Success :
 
 ```JSON
 {
-   "data" :[
-      {
+   "data" :{
          "id" : 1,
          "name" : "Nasi Goreng",
          "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
          "price" : 20000,
          "rating" : 5,
          "order" : 18
-      }
-   ]
+   }
 }
 ```
 
