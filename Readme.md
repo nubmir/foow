@@ -983,6 +983,7 @@ Response Success :
    "data" :[
       {
          "id" : 1,
+         "food_id" : 20,
          "name" : "Nasi Goreng",
          "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
          "date" : "2024-04-16T05:01:13.613Z",
@@ -991,6 +992,7 @@ Response Success :
       },
       {
         "id" : 2,
+        "food_id" : 26,
          "name" : "Ramen",
          "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
          "date" : "2024-04-16T05:01:13.613Z",
@@ -999,6 +1001,7 @@ Response Success :
       },
       {
         "id" : 3,
+        "food_id" : 8,
          "name" : "Taco",
          "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
          "date" : "2024-04-16T05:01:13.613Z",
@@ -1007,6 +1010,7 @@ Response Success :
       },
       {
         "id" : 4,
+        "food_id" : 9,
          "name" : "Soto Ayam",
          "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
          "date" : "2024-04-16T05:01:13.613Z",
@@ -1029,7 +1033,7 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **GET /api/order/:food_id**
+**Endpoint** : **GET /api/order/:id**
 
 Summary : to get user order detail
 
@@ -1041,9 +1045,9 @@ Request :
   Required : true <br>
   Type : Int <br>
 
-- Name : food_id <br>
+- Name :id <br>
   In : params <br>
-  Description : id food from users click<br>
+  Description : id order from users click<br>
   Required : true <br>
   Type : Int <br>
 
@@ -1052,6 +1056,7 @@ Response Success :
 ```JSON
 {
    "data" : {
+         "id" : 1,
          "location" : "Jakarta Timur",
          "date" : "2024-04-16T05:01:13.613Z",
          "food_id" : 1,
