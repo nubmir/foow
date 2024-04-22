@@ -82,14 +82,14 @@ model Ingredients {
 }
 
 model Order {
+  id       Int            @id @default(autoincrement())
   location String
   date     DateTime       @default(now())
   rating   Int
-  user     User            @relation(fields: [user_uuid], references: [uuid])
+  user     User           @relation(fields: [user_uuid], references: [uuid])
   user_uuid  String
-  food     Food          @relation(fields: [food_id],references: [id])
+  food     Food           @relation(fields: [food_id],references: [id])
   food_id  Int 
 
-  @@id(name: "order_id", [user_uuid,food_id])
   @@map("orders")
 }

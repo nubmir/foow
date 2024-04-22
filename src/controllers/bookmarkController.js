@@ -17,9 +17,9 @@ const findBookmark = async (req, res) => {
         id: bookmark.food.id,
         name: bookmark.food.name,
         image: bookmark.food.image,
-        price: price[0]._sum.price,
+        price: price,
         rating: bookmark.food.rating,
-        order: totalOrder[0]._count.food_id,
+        order: totalOrder,
       },
     });
   } catch (error) {
