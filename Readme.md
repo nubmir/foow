@@ -217,7 +217,7 @@ Response Error :
 
 ### - Food
 
-**Endpoint** : **GET /api/food**
+**Endpoint** : **GET /api/food?page=1**
 
 Summary : to get food data
 
@@ -230,7 +230,7 @@ Request :
   Type : Int <br>
   Default : 1
 
-- Name : categories <br>
+- Name : category <br>
   In : query <br>
   Description : To get food data by categories using category id <br>
   Required : false <br>
@@ -672,7 +672,7 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **GET /api/bookmark**
+**Endpoint** : **GET /api/bookmark?page=1**
 
 Summary : to get user food bookmark / favorite
 
@@ -809,7 +809,7 @@ Response Error :
 
 ### - Order
 
-**Endpoint** : **POST /api/order**
+**Endpoint** : **POST /api/order/food_id**
 
 Summary : to create order / food transaction on table order
 
@@ -822,7 +822,7 @@ Request :
   Type : Int <br>
 
 - Name : food_id <br>
-  In : body <br>
+  In : params <br>
   Description : id of food want to order by user <br>
   Required : true <br>
   Type : Int <br>
@@ -897,7 +897,7 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **PATCH /api/order/rating**
+**Endpoint** : **PATCH /api/order/rating/:id**
 
 Summary : to give rating on food that already ordered and auto-update on rating food tables
 
@@ -910,7 +910,7 @@ Request :
   Type : Int <br>
 
 - Name : food_id <br>
-  In : body <br>
+  In : params <br>
   Description : id of food want to order by user <br>
   Required : true <br>
   Type : Int <br>

@@ -1,5 +1,8 @@
-const { category } = require("../db");
-const { findFood } = require("../models/foodModels");
+const {
+  findFood,
+  getAllFood,
+  getAllFoodbyCategory,
+} = require("../models/foodModels");
 
 const foodSearch = async (req, res) => {
   try {
@@ -24,4 +27,41 @@ const foodSearch = async (req, res) => {
   }
 };
 
-module.exports = { foodSearch };
+//get all food
+const getFood = async (req, res) => {
+  try {
+    const order = req.query.order;
+    const price = req.query.price;
+    const rating = req.query.rating;
+    const page = parseInt(req.query.page);
+    const category = parseInt(req.query.category);
+    //validation
+    if (page < 1) {
+      return res.status(400).json({ message: "Error : Negative pagination" });
+    }
+    if ((price && order) || (price && rating) || (rating && order)) {
+      return res.status(400).json({ message: "accept only 1 sort parameter" });
+    }
+
+    //jika filter berdasarkan category
+    if (category) {
+      const data = await getAllFoodbyCategory(
+        page,
+        price,
+        order,
+        rating,
+        category
+      );
+      return res.status(200).json(data);
+    } else {
+      //jika dapatkan semua data makanan
+      const data = await getAllFood(page, price, order, rating);
+      res.status(200).json(data);
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { foodSearch, getFood };

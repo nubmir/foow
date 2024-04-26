@@ -14,9 +14,9 @@ datasource db {
 }
 
 model User {
-  uuid      String        @id @default(uuid())
+  uuid     String     @id @default(uuid())
   username String
-  email    String         @unique
+  email    String     @unique
   password String
   bookmark Bookmark[]
   order    Order[]
@@ -25,13 +25,13 @@ model User {
 }
 
 model Food {
-  id          Int             @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   image       String?
-  description String?         @db.Text
-  rating      Int?            @default(0)
+  description String?       @db.Text
+  rating      Int?          @default(0)
   category_id Int
-  category    Category        @relation(fields: [category_id], references: [id])
+  category    Category      @relation(fields: [category_id], references: [id])
   method      Method[]
   ingredients Ingredients[]
   bookmark    Bookmark[]
@@ -41,22 +41,22 @@ model Food {
 }
 
 model Category {
-  id            Int     @id @default(autoincrement())
-  name          String
-  header_image  String?
-  image         String?
-  foods         Food[]
+  id           Int     @id @default(autoincrement())
+  name         String
+  header_image String?
+  image        String?
+  foods        Food[]
 
   @@map("categories")
 }
 
 model Bookmark {
-  user    User @relation(fields: [user_uuid], references: [uuid])
+  user      User   @relation(fields: [user_uuid], references: [uuid])
   user_uuid String
-  food    Food @relation(fields: [food_id], references: [id])
-  food_id Int
+  food      Food   @relation(fields: [food_id], references: [id])
+  food_id   Int
 
-  @@id(name: "bookmark_id", [user_uuid,food_id])
+  @@id(name: "bookmark_id", [user_uuid, food_id])
   @@map("bookmarks")
 }
 
@@ -82,14 +82,14 @@ model Ingredients {
 }
 
 model Order {
-  id       Int            @id @default(autoincrement())
-  location String
-  date     DateTime       @default(now())
-  rating   Int
-  user     User           @relation(fields: [user_uuid], references: [uuid])
-  user_uuid  String
-  food     Food           @relation(fields: [food_id],references: [id])
-  food_id  Int 
+  id        Int      @id @default(autoincrement())
+  location  String
+  date      DateTime @default(now())
+  rating    Int
+  user      User     @relation(fields: [user_uuid], references: [uuid])
+  user_uuid String
+  food      Food     @relation(fields: [food_id], references: [id])
+  food_id   Int
 
   @@map("orders")
 }
