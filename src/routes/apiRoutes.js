@@ -1,12 +1,18 @@
 const router = require("express").Router();
 const { findBookmark } = require("../controllers/bookmarkController");
 const { getCategoryData } = require("../controllers/categoryController");
-const { foodSearch } = require("../controllers/foodController");
+const { foodSearch, getFoodById, getRandomFoods } = require("../controllers/foodController");
 const { ratingFeature } = require("../controllers/orderController");
 const { verify } = require("../middlewares/authorization");
 
 //categories
 router.get("/categories", getCategoryData);
+
+//food
+router.get("/food/random", getRandomFoods);
+
+//food
+router.get("/food/:id", getFoodById);
 
 //food
 router.get("/food/search", foodSearch);
