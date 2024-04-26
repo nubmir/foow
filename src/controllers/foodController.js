@@ -3,7 +3,9 @@ const {
   getAllFood,
   getAllFoodbyCategory,
 } = require("../models/foodModels");
+const prisma = require("../db");
 
+//controller for searching food
 const foodSearch = async (req, res) => {
   try {
     const query = req.query.query || "";
@@ -64,4 +66,67 @@ const getFood = async (req, res) => {
   }
 };
 
-module.exports = { foodSearch, getFood };
+// get detail food
+const getFoodById = async (req, res) => {
+  const { id } = req.params; // Get food_id from request params
+
+  try {
+    const food = await prisma.food.findUnique({
+      where: {
+        id: parseInt(id), // Convert id to integer
+      },
+      include: {
+        _count: {
+          select: {
+            order: true,
+          },
+        },
+        category: true,
+        method: true,
+        ingredients: true,
+      },
+    });
+
+    if (food) {
+      res.status(200).json({
+        data: {
+          id: food.id,
+          name: food.name,
+          image: food.image,
+          description: food.description,
+          rating: food.rating,
+          order: food._count.order,
+          category: food.category.name,
+          ingredients: food.ingredients,
+          method: food.method,
+        },
+      }); // Send food details as JSON response
+    } else {
+      res.status(404).json({ message: "Data not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching food details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//get random food for trending and recomendation
+const getRandomFoods = async (req, res) => {
+  const { limit } = req.query;
+
+  try {
+    // If limit parameter is not provided or invalid, default to 5
+    const limitValue = parseInt(limit, 10) || 5;
+
+    // Execute raw SQL query to fetch random foods with specified limit
+    const foods =
+      await prisma.$queryRaw`SELECT * FROM foods ORDER BY RANDOM() LIMIT ${limitValue}`;
+
+    res.status(200).json({ data: foods });
+  } catch (error) {
+    console.error("Error fetching random foods:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { foodSearch, getFoodById, getRandomFoods, getFood };

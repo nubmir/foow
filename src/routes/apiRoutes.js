@@ -4,7 +4,12 @@ const {
   getBookmarkUser,
 } = require("../controllers/bookmarkController");
 const { getCategoryData } = require("../controllers/categoryController");
-const { foodSearch, getFood } = require("../controllers/foodController");
+const {
+  foodSearch,
+  getFoodById,
+  getRandomFoods,
+  getFood,
+} = require("../controllers/foodController");
 const {
   ratingFeature,
   getOrderUser,
@@ -15,6 +20,8 @@ const { verify } = require("../middlewares/authorization");
 router.get("/categories", getCategoryData);
 
 //food
+router.get("/food/random", getRandomFoods);
+router.get("/food/:id", getFoodById);
 router.get("/food/search", foodSearch);
 router.get("/food", getFood);
 
