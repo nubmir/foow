@@ -1,5 +1,75 @@
 const prisma = require("../db");
 
+// Menambahkan bookmark baru
+const addBookmark = async (uuid, food_id) => {
+  // Tambahkan bookmark baru
+  const newBookmark = await prisma.bookmark.create({
+    data: {
+      user_uuid: uuid,
+      food_id: food_id,
+    },
+  });
+
+  // Dapatkan informasi makanan berdasarkan food_id
+  const foodDetails = await prisma.food.findUnique({
+    where: {
+      id: food_id,
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      description: true,
+      rating: true,
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      ingredients: {
+        select: {
+          amount: true,
+          name: true,
+          price: true,
+        },
+      },
+      method: {
+        select: {
+          step: true,
+          how: true,
+        },
+      },
+    },
+  });
+
+  const priceFood = await prisma.ingredients.groupBy({
+    by: ["food_id"],
+    _sum: {
+      price: true,
+    },
+    where: {
+      food_id: food_id, // Menggunakan `food_id` yang benar
+    },
+  });
+
+  // Gabungkan data pesanan dan harga makanan
+  const totalPrice = priceFood.length > 0 ? priceFood[0]._sum.price : 0; // Harga total
+
+  // response data
+  const data = {
+    id: foodDetails.id,
+    name: foodDetails.name,
+    image: foodDetails.image,
+    description: foodDetails.description,
+    rating: foodDetails.rating,
+    category: foodDetails.category.name,
+    price: totalPrice,
+    ingredients: foodDetails.ingredients,
+  };
+
+  return data;
+};
+
 //to get all bookmark user data
 const getAllBookmark = async (page, price = "asc", order, rating, uuid) => {
   const showData = 10;
@@ -141,4 +211,17 @@ const bookmarkById = async (uuid, food_id) => {
   return data;
 };
 
-module.exports = { bookmarkById, getAllBookmark };
+const deleteBookmark = async (uuid, food_id) => {
+  const data = await prisma.bookmark.delete({
+    where: {
+      bookmark_id: {
+        user_uuid: uuid,
+        food_id: food_id,
+      },
+    },
+  });
+
+  return data;
+};
+
+module.exports = { bookmarkById, getAllBookmark, addBookmark, deleteBookmark };

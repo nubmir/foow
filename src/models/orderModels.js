@@ -1,5 +1,82 @@
 const prisma = require("../db");
 
+// Membuat pesanan baru dan mendapatkan detail makanan
+const createOrder = async (user_uuid, food_id, location) => {
+  // Membuat pesanan baru
+  const newOrder = await prisma.order.create({
+    data: {
+      user_uuid: user_uuid,
+      food_id: parseInt(food_id, 10), // Konversi ke integer
+      location: location,
+      rating: 0, // Rating awal
+      date: new Date(), // Tanggal saat pesanan dibuat
+    },
+  });
+
+  // Mendapatkan detail makanan berdasarkan `food_id`
+  const foodDetails = await prisma.food.findUnique({
+    where: {
+      id: parseInt(food_id, 10),
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      description: true,
+      rating: true,
+      // order: true,
+      category: {
+        select: {
+          name: true,
+        },
+      },
+      ingredients: {
+        select: {
+          name: true,
+          price: true,
+          amount: true,
+        },
+      },
+      method: {
+        select: {
+          step: true,
+          how: true,
+        },
+      },
+    },
+  });
+
+  const totalOrder = await getTotalOrder(food_id); // Mendapatkan total order
+
+  const priceFood = await prisma.ingredients.groupBy({
+    by: ["food_id"],
+    _sum: {
+      price: true,
+    },
+    where: {
+      food_id: food_id, // Menggunakan `food_id` yang benar
+    },
+  });
+
+  // Gabungkan data pesanan dan harga makanan
+  const totalPrice = priceFood.length > 0 ? priceFood[0]._sum.price : 0; // Harga total
+
+  const data = {
+    food_id: foodDetails.id,
+    name: foodDetails.name,
+    image: foodDetails.image,
+    description: foodDetails.description,
+    price: totalPrice,
+    rating: foodDetails.rating,
+    order: totalOrder,
+    category: foodDetails.category.name,
+    ingredients: foodDetails.ingredients,
+  };
+
+  // return { order: newOrder, food: foodDetails };
+  return data;
+};
+
 //untuk mendapatkan jumlah order pada suatu makanan dengan parameter food_id ---------------------
 const getTotalOrder = async (food_id) => {
   const data = await prisma.order.groupBy({
@@ -25,6 +102,62 @@ const findOrderUser = async (id, uuid) => {
       user_uuid: uuid,
     },
   });
+  return data;
+};
+
+//untuk mendapatkan detail order user berdasarkan id dan uuid ---------------------
+const findOrderDetail = async (uuid, order_id) => {
+  // Cari pesanan berdasarkan ID dan user_uuid
+  const order = await prisma.order.findFirst({
+    where: {
+      user_uuid: uuid,
+      id: order_id,
+    },
+    include: {
+      food: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          description: true,
+          ingredients: {
+            select: {
+              amount: true,
+              name: true,
+              price: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const food_id = order.food.id; // Dapatkan food_id dari pesanan yang ditemukan
+
+  // Mendapatkan total harga dari bahan-bahan berdasarkan `food_id`
+  const priceFood = await prisma.ingredients.groupBy({
+    by: ["food_id"],
+    _sum: {
+      price: true,
+    },
+    where: {
+      food_id: food_id, // Menggunakan `food_id` yang benar
+    },
+  });
+
+  // Gabungkan data pesanan dan harga makanan
+  const totalPrice = priceFood.length > 0 ? priceFood[0]._sum.price : 0; // Harga total
+
+  const data = {
+    id: order.id,
+    date: order.date,
+    name: order.food.name,
+    image: order.food.image,
+    description: order.food.description,
+    price: totalPrice, // Harga dari `groupBy`
+    ingredients: order.food.ingredients,
+  };
+
   return data;
 };
 
@@ -161,4 +294,6 @@ module.exports = {
   getTotalRating,
   findOrderUser,
   getAllOrder,
+  createOrder,
+  findOrderDetail,
 };

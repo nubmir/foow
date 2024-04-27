@@ -2,6 +2,8 @@ const router = require("express").Router();
 const {
   findBookmark,
   getBookmarkUser,
+  addBookmarkUser,
+  deleteBookmarkUser,
 } = require("../controllers/bookmarkController");
 const { getCategoryData } = require("../controllers/categoryController");
 const {
@@ -13,6 +15,8 @@ const {
 const {
   ratingFeature,
   getOrderUser,
+  createOrderUser,
+  findOrderDetailUser,
 } = require("../controllers/orderController");
 const { verify } = require("../middlewares/authorization");
 
@@ -26,11 +30,15 @@ router.get("/food/search", foodSearch);
 router.get("/food", getFood);
 
 //bookmark
+router.post("/bookmark/:food_id", verify, addBookmarkUser);
 router.get("/bookmark/:food_id", verify, findBookmark);
 router.get("/bookmark", verify, getBookmarkUser);
+router.delete("/bookmark/:food_id", verify, deleteBookmarkUser);
 
 //order
+router.post("/order/:food_id", verify, createOrderUser);
 router.patch("/order/rating/:id", verify, ratingFeature);
 router.get("/order", verify, getOrderUser);
+router.get("/order/:id", verify, findOrderDetailUser);
 
 module.exports = router;
