@@ -1,6 +1,44 @@
-const { bookmarkById, getAllBookmark } = require("../models/bookmarkModels");
+const {
+  bookmarkById,
+  getAllBookmark,
+  addBookmark,
+  deleteBookmark,
+} = require("../models/bookmarkModels");
 const { priceFood } = require("../models/foodModels");
 const { getTotalOrder } = require("../models/orderModels");
+
+const addBookmarkUser = async (req, res) => {
+  const uuid = req.user.uuid; // Mengambil user_uuid dari cookie
+  const food_id = parseInt(req.params.food_id);
+
+  try {
+    if (!uuid) {
+      return res.status(400).json({ message: "User UUID tidak valid" });
+    }
+
+    if (!food_id) {
+      return res.status(400).json({ message: "Food ID tidak valid" });
+    }
+
+    // Periksa apakah makanan sudah di-bookmark
+    const existingBookmark = await bookmarkById(uuid, food_id);
+
+    if (existingBookmark) {
+      return res.status(400).json({ message: "Food sudah ada di bookmark" });
+    }
+
+    // Tambahkan bookmark baru
+    const newBookmark = await addBookmark(uuid, food_id);
+
+    return res.status(201).json({
+      data: newBookmark,
+      message: "Food successfully added to bookmark",
+    });
+  } catch (error) {
+    console.error("Error in addBookmarkHandler:", error);
+    return res.status(500).json({ message: "Data insert failed" });
+  }
+};
 
 //untuk mendapatkan semua data bookmark user
 const getBookmarkUser = async (req, res) => {
@@ -33,8 +71,12 @@ const findBookmark = async (req, res) => {
     const uuid = req.user.uuid;
     const food_id = parseInt(req.params.food_id);
     const bookmark = await bookmarkById(uuid, food_id);
+
     if (bookmark?.length < 1 || bookmark == null) {
-      return res.status(200).json({ data: {}, message: "data not found" });
+      return res.status(200).json({
+        data: null,
+        message: "data not found",
+      });
     }
     const price = await priceFood(food_id);
     const totalOrder = await getTotalOrder(food_id);
@@ -54,4 +96,32 @@ const findBookmark = async (req, res) => {
   }
 };
 
-module.exports = { findBookmark, getBookmarkUser };
+const deleteBookmarkUser = async (req, res) => {
+  try {
+    const uuid = req.user.uuid;
+    const food_id = parseInt(req.params.food_id);
+    const bookmark = await bookmarkById(uuid, food_id);
+
+    if (bookmark?.length < 1 || bookmark == null) {
+      return res.status(404).json({ data: null, message: "data not found" });
+    }
+
+    // Hapus bookmark
+    const deleteData = await deleteBookmark(uuid, food_id);
+
+    res.status(200).json({
+      data: null, // Mengembalikan `null` karena data sudah dihapus
+      message: "Bookmark successfully deleted",
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = {
+  findBookmark,
+  getBookmarkUser,
+  addBookmarkUser,
+  deleteBookmarkUser,
+};
