@@ -1,18 +1,10 @@
 # FOODO BACKEND
 
-**Badges**
-
-Optional badges such as npm version, test and build coverage, and so on.
-
-**Summary**
-
-One- or two-sentence description of what the module does.
+[![file-cover-1.png](https://i.postimg.cc/fy6cm01L/file-cover-1.png)](https://postimg.cc/p5J5tyWb)
 
 ## Overview
 
-Optionally, include a section of one or two paragraphs with more high-level
-information on what the module does, what problems it solves, why one would
-use it and how. Don't just repeat what's in the summary.
+Foodo adalah sebuah website dimana user bisa melihat resep dari berbagai jenis makanan dengan beberapa kategori yaitu, nusantara, jepang, korea, dan western. Beserta penjelasan bahan dan langkah untuk memasak makanan yang user inginkan dan juga disediakan fitur "delivery recipe" yaitu user dapat memesan bahan-bahan untuk memasak sesuai dengan menu yang dipilih, dengan pilih menu resep lalu isi alamat dan bayar maka bahan-bahan yang diperlukan untuk memasak akan dikirim ke alamat user.
 
 ## Quick Start
 
@@ -34,6 +26,12 @@ Install dependencies:
 $ npm install
 ```
 
+Create .env file from .env.example:
+
+```console
+$ npm install
+```
+
 Start the server on development:
 
 ```console
@@ -48,13 +46,9 @@ Start the server on production:
 $ npm start
 ```
 
-## Basic use
-
-General description of how to use the module with basic example.
-
 ## API
 
-### - Authentication
+### - **Authentication**
 
 **Endpoint** : **POST /auth/register**
 
@@ -180,7 +174,7 @@ Response Error :
 }
 ```
 
-### - Categories
+### - **Categories**
 
 Endpoint : **GET /api/categories**
 
@@ -215,7 +209,7 @@ Response Error :
 }
 ```
 
-### - Food
+### - **Food**
 
 **Endpoint** : **GET /api/food?page=1**
 
@@ -506,7 +500,7 @@ Response Error :
 }
 ```
 
-### - Bookmark
+### - **Bookmark**
 
 **Endpoint** : **POST /api/bookmark/:food_id**
 
@@ -764,7 +758,7 @@ Response Error :
 }
 ```
 
-### - Order
+### - **Order**
 
 **Endpoint** : **POST /api/order/:food_id**
 
@@ -1048,14 +1042,6 @@ Response Error :
    "message" : "data not found"
 }
 ```
-
-## Examples
-
-Additional examples here.
-
-## Tests
-
-What tests are included and how to run them.
 
 ## Contributing
 
