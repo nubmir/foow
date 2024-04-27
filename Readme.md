@@ -590,7 +590,7 @@ Response Error :
 <hr>
 <br>
 
-**Endpoint** : **DELETE /api/bookmark/:id**
+**Endpoint** : **DELETE /api/bookmark/:food_id**
 
 Summary : to delete food on their bookmark / favorite
 
@@ -612,50 +612,7 @@ Response Success :
 
 ```JSON
 {
-   "data" :{
-      "id" : 1,
-      "name" : "Nasi Goreng",
-      "image" : "https://qqnkeeuttacyfctgebzc.supabase.co/storage/v1/object/sign/WebFoodo/Kategori/korea.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJXZWJGb29kby9LYXRlZ29yaS9rb3JlYS5wbmciLCJpYXQiOjE3MDk2Mzk2MDUsImV4cCI6MTc3MjcxMTYwNX0.CrlG5v4LW3Zo9_9J82Y-qTfVlrydWMe4kPX_-M6HsdQ&t=2024-03-05T11%3A53%3A25.587Z",
-      "description" : "Nasi goreng adalah makanan berupa nasi yang digoreng dan dicampur dalam minyak goreng, margarin, atau mentega.",
-      "rating" : 5,
-      "order" : 20,
-      "category" : "Nusantara",
-      "ingredients" : [
-         {
-            "amount" : 4,
-            "name" : "sdt garam",
-            "price" : 4000
-         },
-         {
-            "amount" : 2,
-            "name" : "potong ayam",
-            "price" : 10000
-         },
-         {
-            "amount" : 1,
-            "name" : "siung bawang",
-            "price" : 1000
-         },
-      ],
-      "Method" : [
-         {
-            "step" : 1,
-            "how" : "Panaskan minyak dan siapkan nasi yang sudah dingin"
-         },
-         {
-            "step" : 2,
-            "how" : "Masuan nasi dan aduk dengan bumbu"
-         },
-         {
-            "step" : 3,
-            "how" : "masukan telur dan ayam yang sudah di masak dengan matang"
-         },
-         {
-            "step" : 4,
-            "how" : "sajian di piring hangat hangat"
-         },
-      ]
-   },
+   "data" : null,
    "message" : "Food successfully deleted from bookmark"
 }
 ```
@@ -809,7 +766,7 @@ Response Error :
 
 ### - Order
 
-**Endpoint** : **POST /api/order/food_id**
+**Endpoint** : **POST /api/order/:food_id**
 
 Summary : to create order / food transaction on table order
 

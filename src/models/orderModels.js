@@ -131,7 +131,9 @@ const findOrderDetail = async (uuid, order_id) => {
       },
     },
   });
-
+  if (!order) {
+    return;
+  }
   const food_id = order.food.id; // Dapatkan food_id dari pesanan yang ditemukan
 
   // Mendapatkan total harga dari bahan-bahan berdasarkan `food_id`
@@ -150,7 +152,9 @@ const findOrderDetail = async (uuid, order_id) => {
 
   const data = {
     id: order.id,
+    location: order.location,
     date: order.date,
+    food_id: order.food_id,
     name: order.food.name,
     image: order.food.image,
     description: order.food.description,

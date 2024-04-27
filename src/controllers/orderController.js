@@ -8,6 +8,7 @@ const {
   findOrderDetail,
 } = require("../models/orderModels");
 
+//order food / add food to order
 const createOrderUser = async (req, res) => {
   try {
     const uuid = req.user.uuid;
@@ -54,6 +55,7 @@ const getOrderUser = async (req, res) => {
   }
 };
 
+//get order details user
 const findOrderDetailUser = async (req, res) => {
   try {
     const uuid = req.user?.uuid; // Pastikan `uuid` tersedia
@@ -61,7 +63,7 @@ const findOrderDetailUser = async (req, res) => {
 
     // Validasi `uuid`
     if (!uuid) {
-      return res.status(400).json({ message: "User UUID tidak valid" });
+      return res.status(400).json({ message: "invalid user UUID" });
     }
 
     // Validasi dan konversi `id`

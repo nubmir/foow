@@ -7,24 +7,27 @@ const {
 const { priceFood } = require("../models/foodModels");
 const { getTotalOrder } = require("../models/orderModels");
 
+//untuk menambahkan food ke bookmark
 const addBookmarkUser = async (req, res) => {
   const uuid = req.user.uuid; // Mengambil user_uuid dari cookie
   const food_id = parseInt(req.params.food_id);
 
   try {
     if (!uuid) {
-      return res.status(400).json({ message: "User UUID tidak valid" });
+      return res.status(400).json({ message: "invalid user UUID" });
     }
 
     if (!food_id) {
-      return res.status(400).json({ message: "Food ID tidak valid" });
+      return res.status(400).json({ message: "invalid food_id" });
     }
 
     // Periksa apakah makanan sudah di-bookmark
     const existingBookmark = await bookmarkById(uuid, food_id);
 
     if (existingBookmark) {
-      return res.status(400).json({ message: "Food sudah ada di bookmark" });
+      return res
+        .status(400)
+        .json({ message: "Food already exists in bookmark" });
     }
 
     // Tambahkan bookmark baru
@@ -96,6 +99,7 @@ const findBookmark = async (req, res) => {
   }
 };
 
+//remove food from bookmark
 const deleteBookmarkUser = async (req, res) => {
   try {
     const uuid = req.user.uuid;
