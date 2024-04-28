@@ -25,9 +25,9 @@ router.get("/categories", getCategoryData);
 
 //food
 router.get("/food/random", getRandomFoods);
-router.get("/food/:id", getFoodById);
 router.get("/food/search", foodSearch);
 router.get("/food", getFood);
+router.get("/food/:id", getFoodById);
 
 //bookmark
 router.post("/bookmark/:food_id", verify, addBookmarkUser);

@@ -68,9 +68,8 @@ const getFood = async (req, res) => {
 
 // get detail food
 const getFoodById = async (req, res) => {
-  const { id } = req.params; // Get food_id from request params
-
   try {
+    const { id } = req.params; // Get food_id from request params
     const food = await prisma.food.findUnique({
       where: {
         id: parseInt(id), // Convert id to integer
