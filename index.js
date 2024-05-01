@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
-const port = process.env.PORT;
+
 const apiRoutes = require("./src/routes/apiRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const cookieParser = require("cookie-parser");
@@ -20,8 +20,3 @@ app.get("/", (req, res) => {
 });
 app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
-
-// Server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
