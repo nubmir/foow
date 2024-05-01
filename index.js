@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to the Foodo API");
 });
 app.use("/api", apiRoutes);
