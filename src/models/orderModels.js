@@ -179,17 +179,23 @@ const updateOrderRating = async (rate, uuid, id) => {
   return data;
 };
 
-//untuk mendapatkan total rating pada makanan tertentu berdasarkan semua user ---------------------------
+//untuk mendapatkan total rating lebih dari 0 pada makanan tertentu berdasarkan semua order user ---------------------------
 const getTotalRating = async (food_id) => {
   const totalCount = await prisma.order.count({
     where: {
       food_id: food_id,
+      rating: {
+        gt: 0,
+      },
     },
   });
   const totalRating = await prisma.order.groupBy({
     by: ["food_id"],
     where: {
       food_id: food_id,
+      rating: {
+        gt: 0,
+      },
     },
     _sum: {
       rating: true,
